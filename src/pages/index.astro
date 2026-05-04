@@ -1,17 +1,21 @@
 ---
+import directus from '../lib/directus';
+import { readItems } from '@directus/sdk';
 
+const posts = await directus.request(readItems('posts', {
+  fields: [
+    '*',
+    'status.value',
+    'visibility.value', 
+    'audience.value',
+    'featured_image.*'
+  ]
+}));
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<html>
+  <body>
+    <h1>CSI Hub</h1>
+    <pre>{JSON.stringify(posts, null, 2)}</pre>
+  </body>
 </html>
